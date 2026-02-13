@@ -50,63 +50,31 @@ The following machine learning models were trained and evaluated:
 
 ## Model Comparison Table
 
-  -------------------------------------------------------------------------------
-  ML Model           Accuracy   AUC      Precision   Recall   F1 Score   MCC
-  ------------------ ---------- -------- ----------- -------- ---------- --------
-  Logistic           0.8910     0.8716   0.5940      0.2157   0.3165     0.3126
-  Regression                                                             
+## Model Comparison Table
 
-  Decision Tree      0.9751     0.9403   0.8925      0.8949   0.8937     0.8796
+| ML Model            | Accuracy | AUC    | Precision | Recall | F1 Score | MCC    |
+|--------------------|----------|--------|-----------|--------|----------|--------|
+| Logistic Regression| 0.8910   | 0.8716 | 0.5940    | 0.2157 | 0.3165   | 0.3126 |
+| Decision Tree      | 0.9751   | 0.9403 | 0.8925    | 0.8949 | 0.8937   | 0.8796 |
+| KNN                | 0.9140   | 0.9287 | 0.7221    | 0.4299 | 0.5390   | 0.5152 |
+| Naive Bayes        | 0.8373   | 0.8163 | 0.3515    | 0.4628 | 0.3996   | 0.3114 |
+| Random Forest      | 0.9804   | 0.9925 | 0.9494    | 0.8790 | 0.9128   | 0.9026 |
+| XGBoost            | 0.9476   | 0.9724 | 0.8359    | 0.6867 | 0.7540   | 0.7294 |
 
-  KNN                0.9140     0.9287   0.7221      0.4299   0.5390     0.5152
-
-  Naive Bayes        0.8373     0.8163   0.3515      0.4628   0.3996     0.3114
-
-  Random Forest      0.9804     0.9925   0.9494      0.8790   0.9128     0.9026
-
-  XGBoost            0.9476     0.9724   0.8359      0.6867   0.7540     0.7294
-  -------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
 ## Observations on Model Performance
 
-  -----------------------------------------------------------------------
-  ML Model                         Observation
-  -------------------------------- --------------------------------------
-  Logistic Regression              Provides a good baseline accuracy but
-                                   struggles with recall, indicating
-                                   difficulty in identifying positive
-                                   subscription cases.
+  | ML Model            | Observation |
+|--------------------|-------------|
+| Logistic Regression | Provides a good baseline accuracy but struggles with recall, indicating difficulty in identifying positive subscription cases. |
+| Decision Tree       | Performs very well with balanced precision and recall, showing strong capability in capturing decision boundaries within the dataset. |
+| KNN                 | Achieves moderate performance but lower recall suggests it may miss several potential subscribers. Performance is sensitive to feature scaling and neighbor selection. |
+| Naive Bayes         | Shows comparatively lower accuracy and precision, likely due to the independence assumption between features which may not hold true for this dataset. |
+| Random Forest       | Delivers the best overall performance with the highest accuracy, AUC, F1 score, and MCC. Demonstrates strong generalization and robustness against overfitting. |
+| XGBoost             | Produces strong results with high AUC and accuracy, though slightly lower recall than Random Forest. Remains a powerful model for structured data. |
 
-  Decision Tree                    Performs very well with balanced
-                                   precision and recall, showing strong
-                                   capability in capturing decision
-                                   boundaries within the dataset.
-
-  KNN                              Achieves moderate performance but
-                                   lower recall suggests it may miss
-                                   several potential subscribers.
-                                   Performance is sensitive to feature
-                                   scaling and neighbor selection.
-
-  Naive Bayes                      Shows comparatively lower accuracy and
-                                   precision, likely due to the
-                                   independence assumption between
-                                   features which may not hold true for
-                                   this dataset.
-
-  Random Forest                    Delivers the best overall performance
-                                   with the highest accuracy, AUC, F1
-                                   score, and MCC. Demonstrates strong
-                                   generalization and robustness against
-                                   overfitting.
-
-  XGBoost                          Produces strong results with high AUC
-                                   and accuracy, though slightly lower
-                                   recall than Random Forest. Remains a
-                                   powerful model for structured data.
-  -----------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
