@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
-
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
     classification_report,
     confusion_matrix,
@@ -14,8 +14,26 @@ from sklearn.metrics import (
 )
 
 st.title("Bank Marketing Classification App")
+st.write("Download the dataset or upload a CSV to predict whether a customer will subscribe to a term deposit.")
 
-st.write("Upload a CSV file to predict whether a customer will subscribe to a term deposit.")
+# Load fixed dataset
+fixed_dataset = pd.read_csv("bank-full.csv", sep=";")
+
+# Download option
+csv_data = fixed_dataset.to_csv(index=False, sep=";")
+st.download_button(
+    label="Download Bank Dataset",
+    data=csv_data,
+    file_name="bank-full.csv",
+    mime="text/csv"
+)
+
+# Upload CSV option
+uploaded_file = st.file_uploader("Or upload a CSV file to check predictions", type=["csv"])
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file, sep=";")
+else:
+    df = fixed_dataset.copy()
 
 # Load scaler
 scaler = joblib.load("models/scaler.pkl")
@@ -32,61 +50,49 @@ model_choice = st.selectbox(
         "xgboost"
     ]
 )
-
 model = joblib.load(f"models/{model_choice}.pkl")
 
-uploaded_file = st.file_uploader("Upload Test CSV", type=["csv"])
+# Preprocessing
+for col in df.select_dtypes(include='object').columns:
+    df[col] = df[col].astype('category').cat.codes
 
-if uploaded_file is not None:
+X = df.drop("y", axis=1)
+y = df["y"]
 
-    df = pd.read_csv(uploaded_file, sep=";")
+if model_choice in ["logistic", "knn"]:
+    X = scaler.transform(X)
 
-    # Encode categorical columns
-    for col in df.select_dtypes(include='object').columns:
-        df[col] = df[col].astype('category').cat.codes
+# Predictions
+preds = model.predict(X)
 
-    X = df.drop("y", axis=1)
-    y = df["y"]
+# Evaluation Metrics
+accuracy = accuracy_score(y, preds)
+precision = precision_score(y, preds)
+recall = recall_score(y, preds)
+f1 = f1_score(y, preds)
+mcc = matthews_corrcoef(y, preds)
 
-    # Scale if needed
-    if model_choice in ["logistic", "knn"]:
-        X = scaler.transform(X)
+try:
+    probs = model.predict_proba(X)[:, 1]
+    auc = roc_auc_score(y, probs)
+except:
+    auc = "Not available"
 
-    preds = model.predict(X)
+st.subheader("Evaluation Metrics")
+col1, col2, col3 = st.columns(3)
+col1.metric("Accuracy", f"{accuracy:.4f}")
+col2.metric("Precision", f"{precision:.4f}")
+col3.metric("Recall", f"{recall:.4f}")
 
-    # ---------- REQUIRED METRICS ----------
-    accuracy = accuracy_score(y, preds)
-    precision = precision_score(y, preds)
-    recall = recall_score(y, preds)
-    f1 = f1_score(y, preds)
-    mcc = matthews_corrcoef(y, preds)
+col4, col5, col6 = st.columns(3)
+col4.metric("F1 Score", f"{f1:.4f}")
+col5.metric("MCC Score", f"{mcc:.4f}")
+col6.metric("AUC Score", auc if isinstance(auc, str) else f"{auc:.4f}")
 
-    # AUC (handle models safely)
-    try:
-        probs = model.predict_proba(X)[:, 1]
-        auc = roc_auc_score(y, probs)
-    except:
-        auc = "Not available"
+st.subheader("Classification Report")
+report = classification_report(y, preds, output_dict=True)
+st.dataframe(pd.DataFrame(report).transpose())
 
-    # ---------- DISPLAY METRICS (PROFESSIONAL UI) ----------
-    st.subheader("Evaluation Metrics")
-
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Accuracy", f"{accuracy:.4f}")
-    col2.metric("Precision", f"{precision:.4f}")
-    col3.metric("Recall", f"{recall:.4f}")
-
-    col4, col5, col6 = st.columns(3)
-    col4.metric("F1 Score", f"{f1:.4f}")
-    col5.metric("MCC Score", f"{mcc:.4f}")
-    col6.metric("AUC Score", auc if isinstance(auc, str) else f"{auc:.4f}")
-
-    # ---------- Classification Report ----------
-    st.subheader("Classification Report")
-    report = classification_report(y, preds, output_dict=True)
-    st.dataframe(pd.DataFrame(report).transpose())
-
-    # ---------- Confusion Matrix ----------
-    st.subheader("Confusion Matrix")
-    cm = confusion_matrix(y, preds)
-    st.dataframe(pd.DataFrame(cm))
+st.subheader("Confusion Matrix")
+cm = confusion_matrix(y, preds)
+st.dataframe(pd.DataFrame(cm, columns=["Pred 0", "Pred 1"], index=["Actual 0", "Actual 1"]))
