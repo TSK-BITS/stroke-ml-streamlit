@@ -1,5 +1,10 @@
 # Bank Marketing Subscription Prediction
 
+
+Live App:
+https://stroke-ml-app-2025aa05139.streamlit.app/
+
+
 ## Problem Statement
 
 The objective of this project is to build machine learning models that
@@ -8,7 +13,7 @@ marketing campaign data. Accurate prediction can help banking
 institutions focus on potential customers, improve campaign efficiency,
 and reduce operational costs.
 
-------------------------------------------------------------------------
+
 
 ## Dataset Description
 
@@ -33,7 +38,6 @@ term deposit.
 The dataset exceeds the minimum assignment requirements for both feature
 size and instance count, making it suitable for robust model evaluation.
 
-------------------------------------------------------------------------
 
 ## Models Used
 
@@ -46,9 +50,7 @@ The following machine learning models were trained and evaluated:
 -   Random Forest\
 -   XGBoost
 
-------------------------------------------------------------------------
 
-## Model Comparison Table
 
 ## Model Comparison Table
 
@@ -62,7 +64,7 @@ The following machine learning models were trained and evaluated:
 | XGBoost            | 0.9476   | 0.9724 | 0.8359    | 0.6867 | 0.7540   | 0.7294 |
 
 
-------------------------------------------------------------------------
+
 
 ## Observations on Model Performance
 
@@ -76,7 +78,6 @@ The following machine learning models were trained and evaluated:
 | XGBoost             | Produces strong results with high AUC and accuracy, though slightly lower recall than Random Forest. Remains a powerful model for structured data. |
 
 
-------------------------------------------------------------------------
 
 ## Screenshots
 ![alt text](<Screenshot 2026-02-13 161118.jpg>)
@@ -86,18 +87,27 @@ The following machine learning models were trained and evaluated:
 
 
 
-------------------------------------------------------------------------
 
-## Conclusion
+Conclusion
 
-Among all the evaluated models, **Random Forest** achieved the best
-overall performance across most evaluation metrics. Its ability to
-handle feature interactions and reduce variance makes it the most
-suitable model for this prediction task.
+This project successfully implemented and evaluated multiple machine learning algorithms to predict customer subscription behavior using marketing campaign data.
 
-XGBoost and Decision Tree also demonstrated strong performance and can
-be considered reliable alternatives depending on deployment constraints
-such as training time and interpretability.
+Among all models, Random Forest emerged as the best performer, achieving the highest scores across Accuracy, AUC, F1 Score, and MCC. Its ensemble learning approach effectively captures complex feature interactions while reducing overfitting, making it highly suitable for real-world banking applications.
 
-This project highlights how machine learning can assist financial
-institutions in making data-driven marketing decisions.
+The Decision Tree and XGBoost models also demonstrated strong predictive capability. However, ensemble techniques proved more reliable overall due to better generalization.
+
+Logistic Regression provided a stable baseline but struggled with recall, suggesting the presence of non-linear relationships within the dataset. Naive Bayes showed comparatively lower performance due to its independence assumption, while KNN produced moderate results with sensitivity to feature scaling.
+
+Key Takeaways
+
+Ensemble models consistently outperform individual algorithms.
+
+Accuracy alone is not sufficient; metrics like F1 Score and MCC provide better evaluation for imbalanced datasets.
+
+Marketing datasets often contain complex patterns that benefit from tree-based approaches.
+
+Final Recommendation
+
+Based on overall performance, Random Forest is recommended as the most suitable model for predicting term deposit subscriptions due to its robustness, strong predictive power, and consistent results.
+
+This project demonstrates how machine learning can enable financial institutions to make smarter, data-driven marketing decisions.
