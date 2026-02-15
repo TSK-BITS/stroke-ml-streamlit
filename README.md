@@ -7,7 +7,7 @@ https://stroke-ml-app-2025aa05139.streamlit.app/
 
 ## Problem Statement
 
-The objective of this project is to build machine learning models that
+The objective of this assignment is to build machine learning models that
 can predict whether a customer will subscribe to a term deposit based on
 marketing campaign data. Accurate prediction can help banking
 institutions focus on potential customers, improve campaign efficiency,
@@ -90,24 +90,40 @@ The following machine learning models were trained and evaluated:
 
 Conclusion
 
-This project successfully implemented and evaluated multiple machine learning algorithms to predict customer subscription behavior using marketing campaign data.
+This assignment successfully implemented and evaluated multiple machine learning models to predict customer subscription behavior using marketing campaign data. The comparative analysis revealed significant differences in predictive capability, model stability, and generalization performance.
 
-Among all models, Random Forest emerged as the best performer, achieving the highest scores across Accuracy, AUC, F1 Score, and MCC. Its ensemble learning approach effectively captures complex feature interactions while reducing overfitting, making it highly suitable for real-world banking applications.
+Among all models, Random Forest emerged as the top performer, achieving the highest scores across Accuracy, AUC, F1 Score, and MCC. Its ensemble methodology reduces variance, captures complex feature relationships, and enhances overall reliability — making it highly suitable for real-world deployment.
 
-The Decision Tree and XGBoost models also demonstrated strong predictive capability. However, ensemble techniques proved more reliable overall due to better generalization.
+The Decision Tree model also demonstrated excellent predictive strength but may be more prone to overfitting compared to ensemble techniques. XGBoost showed outstanding discriminative power with a very high AUC score and remains a strong candidate for production environments requiring optimized performance.
 
-Logistic Regression provided a stable baseline but struggled with recall, suggesting the presence of non-linear relationships within the dataset. Naive Bayes showed comparatively lower performance due to its independence assumption, while KNN produced moderate results with sensitivity to feature scaling.
+Logistic Regression provided a dependable baseline; however, its lower recall suggests that linear models may struggle with the non-linear patterns present in marketing datasets. KNN delivered reasonable accuracy but may face scalability challenges as data volume grows. Naive Bayes showed comparatively weaker performance due to its assumption of feature independence.
 
-Key Takeaways
+Key Findings
 
-Ensemble models consistently outperform individual algorithms.
+Ensemble methods consistently outperformed individual algorithms.
 
-Accuracy alone is not sufficient; metrics like F1 Score and MCC provide better evaluation for imbalanced datasets.
+Evaluating models using multiple metrics provides a more comprehensive understanding than relying on accuracy alone.
 
-Marketing datasets often contain complex patterns that benefit from tree-based approaches.
+Strong AUC values indicate effective separation between subscribing and non-subscribing customers.
+
+Marketing datasets often contain non-linear relationships that benefit from tree-based approaches.
+
+Business Impact
+
+Accurate prediction of term deposit subscriptions enables banks to:
+
+Target high-probability customers
+
+Optimize marketing expenditure
+
+Reduce unnecessary outreach
+
+Improve campaign conversion rates
+
+Support data-driven strategic decision-making
 
 Final Recommendation
 
-Based on overall performance, Random Forest is recommended as the most suitable model for predicting term deposit subscriptions due to its robustness, strong predictive power, and consistent results.
+Based on overall evaluation, Random Forest is recommended as the most suitable model due to its robustness, strong predictive capability, and consistent performance. XGBoost serves as an excellent alternative when computational complexity can be accommodated.
 
-This project demonstrates how machine learning can enable financial institutions to make smarter, data-driven marketing decisions.
+This assignment demonstrates the practical value of machine learning in enhancing marketing effectiveness and highlights the importance of systematic model evaluation when selecting an optimal predictive solution.
