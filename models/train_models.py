@@ -15,11 +15,11 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 
 
-# ✅ Load dataset (IMPORTANT: semicolon separator)
+
 df = pd.read_csv("../bank-full.csv", sep=";")
 
 
-# ✅ Encode categorical columns
+
 label_encoders = {}
 
 for column in df.select_dtypes(include='object').columns:
@@ -28,23 +28,23 @@ for column in df.select_dtypes(include='object').columns:
     label_encoders[column] = le
 
 
-# ✅ Split features and target
+
 X = df.drop("y", axis=1)
 y = df["y"]
 
-# ✅ Train-test split
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# ✅ Scale features (important for Logistic + KNN)
+
 scaler = StandardScaler()
 
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 
-# ✅ Define models
+
 models = {
     "logistic": LogisticRegression(max_iter=2000),
     "decision_tree": DecisionTreeClassifier(),
@@ -81,17 +81,17 @@ for name, model in models.items():
 
     results.append(metrics)
 
-    # ✅ Save model
+
     joblib.dump(model, f"{name}.pkl")
 
 
-# Save scaler too (needed in Streamlit)
+
 joblib.dump(scaler, "scaler.pkl")
 
-# ✅ Print results nicely
+
 results_df = pd.DataFrame(results)
 print("\nMODEL PERFORMANCE:\n")
 print(results_df.sort_values(by="F1", ascending=False))
 
-# Save results for README later
+
 results_df.to_csv("model_results.csv", index=False)
